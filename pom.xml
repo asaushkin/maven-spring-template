@@ -18,6 +18,12 @@
   	</properties>
 
     <dependencies>
+        <dependency>
+            <groupid>org.apache.tomcat</groupid>
+            <artifactid>tomcat-servlet-api</artifactid>
+            <version>7.0.30</version>
+            <scope>provided</scope>
+        </dependency>
 
     		<!-- Unit Test -->
     		<dependency>
