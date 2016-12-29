@@ -30,7 +30,7 @@
           <collectionProp name="Arguments.arguments">
             <elementProp name="mycounter" elementType="Argument">
               <stringProp name="Argument.name">mycounter</stringProp>
-              <stringProp name="Argument.value">0</stringProp>
+              <stringProp name="Argument.value">1</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
           </collectionProp>
@@ -90,9 +90,31 @@
             <stringProp name="cacheKey"></stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
-            <stringProp name="script">long number = Long.parseLong(vars.get(&quot;mycounter&quot;)); 
-number = number + 1;
-vars.put(&quot;mycounter&quot;, String.valueOf(number));
+            <stringProp name="script">/**
+ *  Для использования объекта Shared необходимо собрать jar со следующим кодом
+ *  и положить джарник в JMETER_HOME/lib
+ * 
+ * package me.asaushkin.jmeter;
+ *
+ * import java.util.concurrent.ConcurrentHashMap;
+ * 
+ * public class Shared
+ * {
+ *     private static final ConcurrentHashMap&lt;String, String&gt; instance = new ConcurrentHashMap&lt;&gt;();
+ *
+ *    public static ConcurrentHashMap&lt;String, String&gt; instance()
+ *    {
+ *        return instance;
+ *    }
+ * }
+ */
+
+import me.asaushkin.jmeter.Counter
+
+vars.put(&quot;mycounter&quot;, String.valueOf(Counter.incrementAndGet(&quot;mycounter&quot;)))
+
+//log.info(&quot;Current number: ${Counter.incrementAndGet(&quot;mycounter&quot;)}&quot;)
+
 </stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223PreProcessor>
